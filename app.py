@@ -1,3 +1,5 @@
+import time
+
 import requests
 from pprint import pprint, pp
 from dotenv import load_dotenv
@@ -14,4 +16,6 @@ item_id = "4l7p"
 region = "ru"
 
 # response
-pp(Stalcraft.get_item_price_history_demoapi(item_id, region, app_token))
+while True:
+    pp(Stalcraft.get_item_price_history(item_id, region, app_token))
+    time.sleep(10)

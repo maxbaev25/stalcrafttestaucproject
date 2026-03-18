@@ -3,46 +3,48 @@ from pprint import pprint, pp
 from dotenv import load_dotenv
 import os
 
+from requests import Response
+
+
 class Stalcraft:
     @staticmethod
-    def get_item_price_history_demoapi(
-            item: str, region: str, token: str, order: str = None, sort: str = None,
-            additional: bool = False, limit: int = 20, offset: int = 0) -> dict:
-        url: str = f"https://dapi.stalcraft.net/{region}/auction/{item}/history"
-        response = requests.get(
-            url=url, params=Stalcraft.set_params(order, sort, additional, limit, offset),
-            headers={"Authorization": f"Bearer {token}"})
+    def get_item_price_history(
+            item: str, region: str, token: str, order: str = None,
+            sort: str = None, additional: bool = False,
+            limit: int = 20, offset: int = 0,
+            is_demo: bool = True) -> dict:
+        if is_demo:
+            version: str = "d"
+        else:
+            version: str = "e"
+        url: str = f"https://{version}api.stalcraft.net/{region}/auction/{item}/history"
+        response = Stalcraft.get_response(
+            url, token, order, sort, additional, limit, offset)
         return response.json()
 
     @staticmethod
-    def get_active_item_lots_demoapi(
-            item: str, region: str, token: str, order: str = None, sort: str = None,
-            additional: bool = False, limit: int = 20, offset: int = 0):
-        url: str = f"https://dapi.stalcraft.net/{region}/auction/{item}/lots"
-        response = requests.get(
-            url=url, params=Stalcraft.set_params(order, sort, additional, limit, offset),
-            headers={"Authorization": f"Bearer {token}"})
+    def get_active_item_lots(
+            item: str, region: str, token: str, order: str = None,
+            sort: str = None, additional: bool = False,
+            limit: int = 20, offset: int = 0,
+            is_demo: bool = True) -> dict:
+        if is_demo:
+            version: str = "d"
+        else:
+            version: str = "e"
+        url: str = f"https://{version}api.stalcraft.net/{region}/auction/{item}/lots"
+        response = Stalcraft.get_response(
+            url, token, order, sort, additional, limit, offset)
         return response.json()
 
     @staticmethod
-    def get_item_price_history_eapi(
-            item: str, region: str, token: str, order: str = None, sort: str = None,
-            additional: bool = False, limit: int = 20, offset: int = 0) -> dict:
-        url: str = f"https://eapi.stalcraft.net/{region}/auction/{item}/history"
+    def get_response(
+            url: str, token: str, order: str, sort: str,
+            additional: bool, limit: int, offset: int) -> Response:
         response = requests.get(
             url=url, params=Stalcraft.set_params(order, sort, additional, limit, offset),
             headers={"Authorization": f"Bearer {token}"})
-        return response.json()
-
-    @staticmethod
-    def get_active_item_lots_eapi(
-            item: str, region: str, token: str, order: str = None, sort: str = None,
-            additional: bool = False, limit: int = 20, offset: int = 0):
-        url: str = f"https://eapi.stalcraft.net/{region}/auction/{item}/lots"
-        response = requests.get(
-            url=url, params=Stalcraft.set_params(order, sort, additional, limit, offset),
-            headers={"Authorization": f"Bearer {token}"})
-        return response.json()
+        return response
 
     @staticmethod
     def set_params(order, sort ,additional, limit, offset) -> dict[str, str]:
