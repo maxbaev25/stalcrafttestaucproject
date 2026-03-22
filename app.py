@@ -13,7 +13,7 @@ secret_token = os.getenv("secret_token")
 
 # vars
 item_id = "4l7p"
-region = "ru"
+region = "SEA"
 
 # response
 while True:
