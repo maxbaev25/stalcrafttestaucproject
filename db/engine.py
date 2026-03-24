@@ -8,7 +8,7 @@ def run_engine() -> None:
 
         # выполнение комманды
         cursor.execute(
-            '''CREATE TABLE IF NOT EXISTS Users 
+            '''CREATE TABLE IF NOT EXISTS ItemHistoryLots 
                (id INTEGER PRIMARY KEY, price INTEGER, 
                 amount INTEGER, time DATETIME)''')
 
