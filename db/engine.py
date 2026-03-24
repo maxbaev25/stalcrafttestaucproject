@@ -1,8 +1,19 @@
-from sqlalchemy import create_engine
-from db.models import Base
+import sqlite3
 
-sqlite_db = "sqlite:///stalcraft.db"
+def run_engine() -> None:
+    try:
+        # настройка подключения к таблице
+        connection = sqlite3.connect("stalcraft.db")
+        cursor = connection.cursor()
 
-engine = create_engine(url=sqlite_db)
+        # выполнение комманды
+        cursor.execute(
+            '''CREATE TABLE IF NOT EXISTS Users 
+               (id INTEGER PRIMARY KEY, price INTEGER, 
+                amount INTEGER, time DATETIME)''')
 
-Base.metadata.create_all(bind=engine)
+        # подтверждение комманды
+        connection.commit()
+        connection.close()
+    except Exception as e:
+        print(e)

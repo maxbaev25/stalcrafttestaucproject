@@ -6,7 +6,10 @@ from pprint import pprint, pp
 from dotenv import load_dotenv
 import os
 from stalcraftapi_model import Stalcraft
-from db import crud
+from db import crud, engine
+
+# database start engine
+engine.run_engine()
 
 # env
 load_dotenv()
