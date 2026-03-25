@@ -8,7 +8,7 @@ import os
 from stalcraftapi_model import Stalcraft
 from db import crud
 
-# envdgfh
+# env
 load_dotenv()
 app_token = os.getenv("token")
 secret_token = os.getenv("secret_token")
