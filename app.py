@@ -13,7 +13,7 @@ load_dotenv()
 app_token = os.getenv("token")
 secret_token = os.getenv("secret_token")
 
-# vars
+# params
 item_id = "4l7p"
 region = "ru"
 
