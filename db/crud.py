@@ -15,7 +15,7 @@ async def get_all_history():
     with Session(bind=engine) as session:
         stmt = select(ItemHistoryLot)
         result = session.execute(stmt)
-        history: StalcraftHistoryTable = result.scalar()
+        history: ItemHistoryLot = result.scalar()
         if not history:
             return None
         return history
