@@ -19,4 +19,12 @@ async def get_all_history():
         if not history:
             return None
         return history
-
+            
+async def gey_history_by_time(time: datetime.datetime):
+    with Session(bind=engine) as session:
+        stmt = select(ItemHistoryLot).where(ItemHistoryLot.time == time)
+        result = session.execute(stmt)
+        history: ItemHistoryLot = result.scalar()
+        if not history:
+            return None
+        return history
