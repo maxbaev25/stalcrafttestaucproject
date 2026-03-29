@@ -6,7 +6,8 @@ from pprint import pprint, pp
 from dotenv import load_dotenv
 import os
 from stalcraftapi_model import Stalcraft
-from db import crud
+from db import crud, engine
+import asyncio
 
 # env
 load_dotenv()
@@ -25,8 +26,8 @@ def get_history():
             i['time'], "%Y-%m-%dT%H:%M:%S.%fZ")
         amount = i['amount']
         price = i['price']
-        crud.add_history_lot(
-            amount=amount, time=times, price=price)
+        asyncio.run(crud.add_history_lot_async(
+            amount=amount, time=times, price=price))
 
 
 scheduler = BlockingScheduler()
