@@ -18,7 +18,7 @@ class Stalcraft:
         else:
             version: str = "e"
         url: str = f"https://{version}api.stalcraft.net/{region}/auction/{item}/history"
-        response = Stalcraft.get_response(
+        response = Stalcraft.get_response_with_params(
             url, token, order, sort, additional, limit, offset)
         return response.json()
 
@@ -33,16 +33,26 @@ class Stalcraft:
         else:
             version: str = "e"
         url: str = f"https://{version}api.stalcraft.net/{region}/auction/{item}/lots"
-        response = Stalcraft.get_response(
+        response = Stalcraft.get_response_with_params(
             url, token, order, sort, additional, limit, offset)
         return response.json()
+
+    @staticmethod
+    def get_response_with_params(
+            url: str, token: str, order: str, sort: str,
+            additional: bool, limit: int, offset: int) -> Response:
+        response = requests.get(
+            url=url, params=Stalcraft.set_params(order, sort, additional, limit, offset),
+            headers={"Authorization": f"Bearer {token}",
+                     "Content-Type": "application/json"})
+        return response
 
     @staticmethod
     def get_response(
             url: str, token: str, order: str, sort: str,
             additional: bool, limit: int, offset: int) -> Response:
         response = requests.get(
-            url=url, params=Stalcraft.set_params(order, sort, additional, limit, offset),
+            url=url,
             headers={"Authorization": f"Bearer {token}",
                      "Content-Type": "application/json"})
         return response
@@ -59,6 +69,7 @@ class Stalcraft:
         else:
             params["additional"] = "false"
         return params
+
 
 
 if __name__ == '__main__':
