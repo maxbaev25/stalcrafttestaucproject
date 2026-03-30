@@ -69,6 +69,17 @@ class Stalcraft:
             params["additional"] = "false"
         return params
 
+    @staticmethod
+    def get_regions(token: str,
+                    is_demo: bool = True) -> dict:
+        if is_demo:
+            version: str = "d"
+        else:
+            version: str = "e"
+        url: str = f"https://{version}api.stalcraft.net/regions"
+        response = Stalcraft.get_response(
+            url, token)
+        return response.json()
 
 
 if __name__ == '__main__':
