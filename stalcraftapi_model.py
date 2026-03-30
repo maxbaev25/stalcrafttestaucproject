@@ -49,8 +49,7 @@ class Stalcraft:
 
     @staticmethod
     def get_response(
-            url: str, token: str, order: str, sort: str,
-            additional: bool, limit: int, offset: int) -> Response:
+            url: str, token: str) -> Response:
         response = requests.get(
             url=url,
             headers={"Authorization": f"Bearer {token}",
