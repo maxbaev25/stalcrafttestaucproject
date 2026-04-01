@@ -1,6 +1,7 @@
 import datetime
 from sqlalchemy.orm import Session
 from db.engine import engine
+from sqlalchemy.ext.asyncio import AsyncSession
 from db.models import ItemHistoryLot
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession

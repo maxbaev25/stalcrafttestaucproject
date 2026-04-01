@@ -9,8 +9,10 @@ class Base(DeclarativeBase):
     pass
 
 class ItemHistoryLot(Base):
-    __tablename__ = 'item_history_lots'
+    __tablename__ = 'ItemHistoryLots'
     id = Column(Integer, primary_key=True)
+    item = Column(Text)
+    region = Column(Text)
     price = Column(Integer)
     amount = Column(Integer)
     time = Column(DateTime)
