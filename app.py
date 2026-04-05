@@ -1,3 +1,4 @@
+
 import datetime
 import time
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -6,8 +7,8 @@ from pprint import pprint, pp
 from dotenv import load_dotenv
 import os
 from stalcraftapi_model import Stalcraft
-from db import crud, engine
-import asyncio
+from db import crud
+import sys
 
 # envarement
 load_dotenv()
@@ -16,7 +17,16 @@ secret_token = os.getenv("secret_token")
 
 # params
 item_id = "4l7p"
-region = "ru"
+region = input("Input region: ")
+regions = Stalcraft.get_regions(app_token, is_demo=True)
+is_correct_region = True
+for reg in regions:
+    if reg["id"] != region or reg["name"] != region:
+        is_correct_region = False
+    else:
+        is_correct_region = True
+if not is_correct_region:
+    sys.exit("Ошибка, регион не существует")
 
 def get_history():
     history = Stalcraft.get_item_price_history(
