@@ -25,6 +25,6 @@ jobs:
         run: ruff check --output-format=github
 
       - name: shutdown ruff
-        if: always
+        if: always()
         run: |
           echo "Ruff shutdown"
