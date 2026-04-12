@@ -1,5 +1,5 @@
 import requests
-from pprint import pprint, pp
+from pprint import pp
 from dotenv import load_dotenv
 import os
 
@@ -59,6 +59,18 @@ class Stalcraft:
         else:
             params["additional"] = "false"
         return params
+
+    @staticmethod
+    def get_regions(token: str,
+                    is_demo: bool = True) -> list:
+        if is_demo:
+            version: str = "d"
+        else:
+            version: str = "e"
+        url: str = f"https://{version}api.stalcraft.net/regions"
+        response = Stalcraft.get_response(
+            url, token)
+        return response.json()
 
 
 if __name__ == '__main__':
